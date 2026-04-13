@@ -35,7 +35,7 @@ export function CircularRing({
   const segmentWidth = (2 * Math.PI * radius) / numSegments * 0.7; // 70% fill, 30% gap
   
   const safePercentage = Math.min(Math.max(percentage, 0), 100);
-  const totalActiveCount = Math.round((safePercentage / 100) * numSegments);
+  const totalActiveCount = safePercentage > 0 ? Math.max(1, Math.round((safePercentage / 100) * numSegments)) : 0;
 
   // Calculate segment mapping if segments are provided
   const segmentMapping = React.useMemo(() => {
@@ -45,15 +45,24 @@ export function CircularRing({
     let currentSegment = 0;
     
     segments.forEach((seg, idx) => {
-      const count = Math.round((seg.percentage / 100) * numSegments);
+      let count = Math.round((seg.percentage / 100) * numSegments);
+      // Force tiny values to show at least 1 block if they exist visually
+      if (count === 0 && seg.percentage > 0) count = 1;
+      
       for (let i = 0; i < count && currentSegment < numSegments; i++) {
         mapping[currentSegment] = { ...seg, index: idx };
         currentSegment++;
       }
     });
+
+    // If active blocks exist but weren't mapped due to extreme rounding, backfill them
+    while (currentSegment < totalActiveCount && segments.length > 0) {
+      mapping[currentSegment] = { ...segments[0], index: 0 };
+      currentSegment++;
+    }
     
     return mapping;
-  }, [segments, numSegments]);
+  }, [segments, numSegments, totalActiveCount]);
 
   return (
     <div 

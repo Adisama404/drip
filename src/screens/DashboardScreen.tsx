@@ -4,14 +4,14 @@ import { CircularRing } from '../components/ui/CircularRing';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Target, Settings, Plus, Wallet, ShieldCheck } from 'lucide-react';
 import { CountUp } from '../components/ui/CountUp';
-import { api, FinanceState } from '../services/api';
+import type { FinanceState } from '../services';
 
 const CATEGORY_COLORS: Record<string, string> = {
   'FOOD': '#4ade80',
   'TRAVEL': '#60a5fa',
   'SHOPPING': '#f87171',
   'BILLS': '#fcd34d',
-  'SUBSCRIPTIONS': '#c084fc',
+  'SUBSCRIPTIONS': '#fb923c',
   'OTHER': '#ffffff',
 };
 

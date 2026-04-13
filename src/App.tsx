@@ -11,7 +11,8 @@ import { WishlistScreen } from './screens/WishlistScreen';
 import { ImportStrategy } from './components/ImportModal';
 import { cn } from './lib/utils';
 
-import { api, FinanceState } from './services/api';
+import * as api from './services';
+import type { FinanceState } from './services';
 
 export type Screen = 'DASHBOARD' | 'EXPENSES' | 'ADD' | 'INSIGHTS' | 'SETTINGS' | 'WISHLIST';
 
@@ -46,7 +47,7 @@ export default function App() {
   };
 
   const handleReset = async () => {
-    await api.resetSystem();
+    await api.resetData();
     await refreshData();
     setCurrentScreen('DASHBOARD');
   };
@@ -57,13 +58,13 @@ export default function App() {
   };
 
   const handleAddWishlist = async (item: Omit<WishlistItem, 'id' | 'savedAmount' | 'createdAt'>) => {
-    await api.addWishlist(item);
+    await api.addWishlistItem(item);
     await refreshData();
   };
   
   const handleAllocate = async (id: string, amount: number) => {
     try {
-      await api.allocateWishlist(id, amount);
+      await api.allocateToWishlist(id, amount);
       await refreshData();
     } catch (error: any) {
       alert(error.message);
@@ -81,7 +82,7 @@ export default function App() {
   
   const handlePurchase = async (id: string) => {
     try {
-      await api.purchaseWishlist(id);
+      await api.purchaseWishlistItem(id);
       await refreshData();
     } catch (error: any) {
       alert(error.message);
@@ -89,7 +90,7 @@ export default function App() {
   };
   
   const handleDeleteWishlist = async (id: string) => {
-    await api.deleteWishlist(id);
+    await api.deleteWishlistItem(id);
     await refreshData();
   };
 
