@@ -1,0 +1,37 @@
+{
+  "expenses": [
+    {
+      "id": "1",
+      "amount": 1200,
+      "category": "FOOD",
+      "note": "Dinner",
+      "date": "2026-04-12T15:34:45.655Z"
+    },
+    {
+      "id": "2",
+      "amount": 450,
+      "category": "TRAVEL",
+      "note": "Uber",
+      "date": "2026-04-11T15:34:45.655Z"
+    },
+    {
+      "id": "3",
+      "amount": 3200,
+      "category": "SHOPPING",
+      "note": "Shoes",
+      "date": "2026-04-10T15:34:45.655Z"
+    }
+  ],
+  "settings": {
+    "income": 50000,
+    "budget": 20000,
+    "savingsGoal": 15000,
+    "generalSavings": 0,
+    "currency": "₹ INR",
+    "notifications": {
+      "budget": true,
+      "daily": false
+    }
+  },
+  "wishlist": []
+}
